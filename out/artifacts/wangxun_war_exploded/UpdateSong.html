@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="resource/ujs/cookie.js"></script>
+    <!-- 新 Bootstrap4 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- bootstrap.bundle.min.js 用于弹窗、提示、下拉菜单，包含了 popper.min.js -->
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <title>Document</title>
+    <link rel="stylesheet" href="resource/acss/Addsong.css">
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+
+
+
+</head>
+
+<body>
+<div class="top">
+    <div class="top_left">
+        音乐系统
+    </div>
+    <div class="top_right">
+        <div class="text">
+            音乐上传页
+        </div>
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"/>
+        <span>用户1</span>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">个人信息</a>
+            <a id="backLo" class="dropdown-item" href="Alogin.html">退出登录</a>
+        </div>
+    </div>
+
+
+</div>
+<div class="bottom">
+    <div class="bottom_left">
+        <ul>
+            <li><a href="">下架查询</a></li>
+            <li><a href="AddSong.html">上传音乐</a></li>
+            <li><a href="Ahomepage.html">音乐信息</a></li>
+            <li><a href="">购买信息</a></li>
+        </ul>
+    </div>
+    <div class="bottom_right">
+        <div class="content">
+            <input type="text" class="change" id="songType"  />
+            <input type="text" class="change" id="songName"  />
+            <input type="text" class="change" id="songAuthor"  />
+            <input type="text" class="change" id="songTime"  />
+            <input type="text" class="change" id="songPrice"  />
+            <input type="button" class="submit" id="updateSong" value="确认修改" />
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    //回显
+    var id = getCookie("id");
+    $.ajax({
+        type: "get",
+        url: "view?id="+id,
+        success:function (data){
+            console.log(data);
+            var arr = data.data[0];
+            $("#songType").val(arr.typename);
+            $("#songName").val(arr.songname);
+            $("#songAuthor").val(arr.singer);
+            $("#songTime").val(arr.time);
+            $("#songPrice").val(arr.price);
+        }
+    })
+    $("#updateSong").click(function (){
+        var songType = $("#songType").val();
+        var songName = $("#songName").val();
+        var songAuthor = $("#songAuthor").val();
+        var songTime = $("#songTime").val();
+        var songPrice = $("#songPrice").val();
+        var id= getCookie("id");
+        var typeint =0;
+        switch (songType){
+            case "流行音乐":
+                typeint = 1;
+                break;
+            case "古典音乐":
+                typeint = 2;
+                break;
+            case "民族音乐":
+                typeint = 3;
+                break;
+            case "摇滚音乐":
+                typeint = 4;
+                break;
+            default:
+                break;
+        }
+        var data ={
+            "songType":songType,
+            "songName":songName,
+            "songAuthor":songAuthor,
+            "songTime":songTime,
+            "songPrice":songPrice,
+            "typeint":typeint,
+            "operation":"update",
+            "id":id
+        }
+        $.ajax({
+            type:"post",
+            url:"add&update",
+            data:data,
+            success:function (data){
+                console.log(data);
+                if(data.code==1){
+                    alert(data.message)
+                    location.href ="Ahomepage.html";
+                }
+                else {
+                    alert(data.message)
+                }
+
+            }
+        })
+    })
+
+
+
+
+</script>
+</html>
