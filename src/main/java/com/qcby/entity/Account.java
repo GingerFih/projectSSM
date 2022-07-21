@@ -4,6 +4,7 @@ public class Account {
     private Integer id;
     private String username;
     //账户bean类
+    //测试一下
 
     public Integer getId() {
         return id;
