@@ -5,6 +5,7 @@ public class Account {
     private String username;
     private String ip;
     private Integer age;
+    private String phone;
 
     public Integer getId() {
         return id;
