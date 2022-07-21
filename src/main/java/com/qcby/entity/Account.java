@@ -3,7 +3,7 @@ package com.qcby.entity;
 public class Account {
     private Integer id;
     private String username;
-
+    //账户bean类
 
     public Integer getId() {
         return id;
