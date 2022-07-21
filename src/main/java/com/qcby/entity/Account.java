@@ -4,6 +4,7 @@ public class Account {
     private Integer id;
     private String username;
     private String ip;
+    private Integer age;
 
     public Integer getId() {
         return id;
