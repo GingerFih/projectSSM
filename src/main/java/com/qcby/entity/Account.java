@@ -3,6 +3,7 @@ package com.qcby.entity;
 public class Account {
     private Integer id;
     private String username;
+    private String ip;
 
     public Integer getId() {
         return id;
